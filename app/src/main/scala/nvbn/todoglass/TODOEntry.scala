@@ -11,14 +11,15 @@ object TODOEntry {
   val preferenceName = "TODOEntries"
   implicit val formats = Serialization.formats(NoTypeHints)
 
-  def entries(implicit context: Context) = {
+  /** Returns all todo entries. **/
+  def entries(implicit context: Context) =
     parse(defaultSharedPreferences.getString(preferenceName, "[]"))
       .extractOpt[List[String]] match {
       case Some(items) => items.map(x => TODOEntry(x))
       case None => Nil
     }
-  }
 
+  /** Replaces todo entries in persistent storage. **/
   def entries_=(items: List[TODOEntry])(implicit context: Context) {
     val editor = defaultSharedPreferences.edit()
     editor.putString(preferenceName, write(items.map(_.text)))
