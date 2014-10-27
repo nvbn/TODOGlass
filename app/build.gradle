@@ -31,6 +31,12 @@ android {
                 srcDir "src/main/scala"
             }
         }
+
+        androidTest {
+            scala {
+                srcDir "src/androidTest/scala"
+            }
+        }
     }
 
     buildTypes {
