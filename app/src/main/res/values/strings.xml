@@ -7,5 +7,6 @@
     <string name="action_add">Add</string>
     <string name="action_skip">Skip</string>
     <string name="voice_trigger">What should I do?</string>
+    <string name="wait">Wait...</string>
 
 </resources>
