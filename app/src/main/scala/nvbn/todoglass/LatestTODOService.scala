@@ -7,12 +7,9 @@ import android.content.Intent
 import android.widget.RemoteViews
 import org.scaloid.common.{LocalService, pendingActivity}
 
-object LatestTODOService {
-  private final val LIVE_CARD_TAG: String = "LatestTODOService"
-}
-
 /** Service for controlling TODOs live card. **/
 class LatestTODOService extends LocalService {
+  val LIVE_CARD_TAG = "LatestTODOService"
   var liveCard: Option[LiveCard] = None
 
   /** Creates live card instance if it not created before. And shows last entry text. **/
@@ -20,7 +17,7 @@ class LatestTODOService extends LocalService {
     liveCard match {
       case Some(card) => card.navigate()
       case None =>
-        val card = new LiveCard(this, LatestTODOService.LIVE_CARD_TAG)
+        val card = new LiveCard(this, LIVE_CARD_TAG)
         liveCard = Some(card)
         showLastEntry()
         card.setAction(pendingActivity[LatestTODOActivity])
