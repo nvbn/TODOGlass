@@ -20,7 +20,7 @@ class LatestTODOService extends LocalService {
       case None =>
         val card = new LiveCard(this, LatestTODOService.LIVE_CARD_TAG)
         liveCard = Some(card)
-        updateCardText("Nothing to do...")
+        showLastEntry()
         card.setAction(pendingActivity[LatestTODOActivity])
             .setVoiceActionEnabled(true)
             .publish(PublishMode.REVEAL)
@@ -32,6 +32,11 @@ class LatestTODOService extends LocalService {
     val remoteViews = new RemoteViews(getPackageName, R.layout.entry)
     remoteViews.setTextViewText(R.id.text, text)
     card.setViews(remoteViews)
+  }
+
+  def showLastEntry() = TODOEntry.entries.lastOption match {
+    case Some(entry) => updateCardText(entry.text)
+    case None => updateCardText("Nothing to do...")
   }
 
   override def onDestroy() = {

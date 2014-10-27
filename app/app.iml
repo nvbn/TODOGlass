@@ -84,8 +84,17 @@
     </content>
     <orderEntry type="jdk" jdkName="Android 4.4.2 Glass Development Kit Preview" jdkType="Android SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" exported="" name="paranamer-2.6" level="project" />
     <orderEntry type="library" exported="" name="scala-library-2.11.2" level="project" />
     <orderEntry type="library" exported="" name="scaloid_2.11-3.5-10" level="project" />
+    <orderEntry type="library" exported="" name="scala-compiler-2.11.0" level="project" />
+    <orderEntry type="library" exported="" name="scala-parser-combinators_2.11-1.0.1" level="project" />
+    <orderEntry type="library" exported="" name="json4s-core_2.11-3.2.11" level="project" />
+    <orderEntry type="library" exported="" name="json4s-native_2.11-3.2.11" level="project" />
+    <orderEntry type="library" exported="" name="scala-xml_2.11-1.0.1" level="project" />
+    <orderEntry type="library" exported="" name="scala-reflect-2.11.0" level="project" />
+    <orderEntry type="library" exported="" name="scalap-2.11.0" level="project" />
+    <orderEntry type="library" exported="" name="json4s-ast_2.11-3.2.11" level="project" />
   </component>
 </module>
 
