@@ -1,41 +1,20 @@
 package nvbn.todoglass
 
-import android.app.Activity
-import android.content.{Context, ComponentName, ServiceConnection, Intent}
-import android.os.{Bundle, IBinder}
-import android.util.Log
+import android.os.Bundle
 import android.view.{Menu, MenuItem}
 import com.google.android.glass.timeline.LiveCard
 import com.google.android.glass.view.WindowUtils
+import org.scaloid.common.{LocalServiceConnection, SActivity}
 
-class LatestTODOActivity extends Activity {
-  val TAG = "LiveCardMenuActivity"
-  var todoService: Option[LatestTODOService] = None
+class LatestTODOActivity extends SActivity {
+  val todoService = new LocalServiceConnection[LatestTODOService]
   var fromLiveCardVoice = false
-
-  val mConnection = new ServiceConnection {
-    override def onServiceConnected(className: ComponentName, service: IBinder) = {
-      val binder = service.asInstanceOf[LatestTODOService.LocalBinder]
-      todoService = Some(binder.getService)
-    }
-
-    override def onServiceDisconnected(className: ComponentName) = {
-      todoService = None
-    }
-  }
 
   override def onCreate(savedInstanceState: Bundle) = {
     super.onCreate(savedInstanceState)
-    val intent = new Intent(this, classOf[LatestTODOService])
-    bindService(intent, mConnection, Context.BIND_AUTO_CREATE)
-    fromLiveCardVoice = getIntent().getBooleanExtra(LiveCard.EXTRA_FROM_LIVECARD_VOICE, false)
+    fromLiveCardVoice = getIntent.getBooleanExtra(LiveCard.EXTRA_FROM_LIVECARD_VOICE, false)
     if (fromLiveCardVoice)
       getWindow.requestFeature(WindowUtils.FEATURE_VOICE_COMMANDS)
-  }
-
-  override def onDestroy() = {
-    super.onDestroy()
-    unbindService(mConnection)
   }
 
   override def onAttachedToWindow() = {
@@ -57,13 +36,13 @@ class LatestTODOActivity extends Activity {
 
   override def onMenuItemSelected(featureId: Int, item: MenuItem) = item.getItemId match {
     case R.id.action_add =>
-      for (service <- todoService) service.update("add")
+      todoService(s => s.updateCardText("add"))
       true
     case R.id.action_done =>
-      for (service <- todoService) service.update("done!")
+      todoService(s => s.updateCardText("done!"))
       true
     case R.id.action_skip =>
-      for (service <- todoService) service.update("skip!")
+      todoService(s => s.updateCardText("skip!"))
       true
     case _ =>
       super.onMenuItemSelected(featureId, item)

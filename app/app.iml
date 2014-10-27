@@ -85,6 +85,7 @@
     <orderEntry type="jdk" jdkName="Android 4.4.2 Glass Development Kit Preview" jdkType="Android SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" exported="" name="scala-library-2.11.2" level="project" />
+    <orderEntry type="library" exported="" name="scaloid_2.11-3.5-10" level="project" />
   </component>
 </module>
 

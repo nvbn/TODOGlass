@@ -29,9 +29,14 @@ android {
     }
 
     buildTypes {
+        debug {
+            runProguard true
+            proguardFiles file('proguard-rules.pro')
+        }
+
         release {
             runProguard true
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            proguardFiles file('proguard-rules.pro')
         }
     }
 }
@@ -39,4 +44,5 @@ android {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile "org.scala-lang:scala-library:2.11.2"
+    compile 'org.scaloid:scaloid_2.11:3.5-10+'
 }
